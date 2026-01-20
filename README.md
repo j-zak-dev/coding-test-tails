@@ -22,7 +22,7 @@ Choose the track that matches your role:
 
 #### Backend Software Engineer Track
 
-* Render stores from `stores.json` in alphabetical order using a template
+* Render stores from `stores.json` in alphabetical order
 * Integrate with [Postcodes.io](https://postcodes.io) to fetch and display latitude/longitude for each store's postcode
 * Build functionality to return stores within a given radius of a UK postcode, ordered north to south. This function should include unit tests.
 
