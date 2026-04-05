@@ -206,7 +206,9 @@ flowchart TB;
 ### Domain Value Objects
  - Storename: string 
  - Postcode: string
- - LatAndLong: list[string]
+ - LatAndLong: 
+   - latitude: float
+   - longitude: float
 
 ### Containerisation
 
