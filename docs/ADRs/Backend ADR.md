@@ -122,6 +122,8 @@ flowchart TB;
 - `Domain/`
    - `value-objects/` 
       - (Business logic)
+   - `aggregates/`
+      - (implements value objects)
    - `services/` 
       - (implementation of methods called by application)
    - `interfaces/`
@@ -163,7 +165,8 @@ flowchart TB;
 ---
  - GIVEN a search request is sent.
  - WHEN the entrypoint layer receives the request.
- - THEN the application layer will call on the onfrastructure layer to return a filtered result.
+ - THEN the entrypoint layer will use the application layer to get all postcodes using the domain layer interface, which is implemented by infrastructure layer and returns in alphabetical order (additional requirement).
+
 
   ```mermaid
    flowchart LR;
@@ -193,6 +196,17 @@ flowchart TB;
    1 --> 2
 
  ```
+### Domain Aggregates
+
+ - Store
+   - StoreName
+   - Postcode
+   - LatAndLong
+
+### Domain Value Objects
+ - Storename: string 
+ - Postcode: string
+ - LatAndLong: list[string]
 
 ### Containerisation
 
