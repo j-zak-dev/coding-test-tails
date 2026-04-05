@@ -144,15 +144,55 @@ flowchart TB;
 
  - GIVEN the frontend landing page is loaded.
  - WHEN the backend receives the GET request.
- - THEN the entrypoint layer will use the application layer to get all postcodes using the infrastructure layer, ordered in alphabetical order (additional requirement).
+ - THEN the entrypoint layer will use the application layer to get all postcodes using the domain layer interface, which is implemented by infrastructure layer and returns in alphabetical order (additional requirement).
 
+ ```mermaid
+   flowchart LR;
+
+   1[Entrypoint calls application function]
+   2[Application uses injected interface from domain]
+   3[Infrastructure implements abstract method and builds query and returns response]
+   4[Applicationlayer builds response for entrypoint layer]
+   5[Entrypoint layer returns response to frontend]
+
+   1 --> 2
+   2 --> 3
+   3 --> 4
+   4 --> 5
+ ```
+---
  - GIVEN a search request is sent.
  - WHEN the entrypoint layer receives the request.
  - THEN the application layer will call on the onfrastructure layer to return a filtered result.
 
+  ```mermaid
+   flowchart LR;
+
+   1[Entrypoint calls application function]
+   2[Application uses injected interface from domain]
+   3[Infrastructure implements abstract method and builds query and returns response]
+   4[Applicationlayer builds response for entrypoint layer]
+   5[Entrypoint layer returns response to frontend]
+
+   1 --> 2
+   2 --> 3
+   3 --> 4
+   4 --> 5
+ ```
+---
  - GIVEN a healthcheck request is sent.
  - WHEN the entrypoint layer receives the request.
  - THEN the entrypoint layer will return a simple healthcheck response.
+
+ ```mermaid
+   flowchart LR;
+
+   1[Entrypoint layer receives a healthcheck request]
+   2[Entrypoint layer returns healthcheck response]
+
+   1 --> 2
+
+ ```
 
 ### Containerisation
 
