@@ -58,7 +58,7 @@ This file serves as the "how" and "why" of the implementation for the backend
 ### DDD Backend Architecture Diagram
 
 ```Mermaid
-flowchart TB
+flowchart TB;
 
    Entrypoint --> Application --> Domain --> Infrastructure;
 
@@ -114,8 +114,6 @@ flowchart TB;
 - `Entrypoints/`
    - `api/` 
       - (contains REST entrypoint definitions)
-   - `dtos/` 
-      - (Request and response models)
 - `Application/`
    - `services/`
       - (implements interfaces and DTOs to build up responses)
@@ -133,7 +131,29 @@ flowchart TB;
       - (code regarding the return of data)
    - `stores.json`
       - (data store)
+- `tests/`
+   - `unit/`
+- `configs/`
+   - `lint.yaml` 
+      - (check code before commit)
+- `Makefile`
+   - (For running commands)
 ---
+
+### Gherkin Syntax Flow:
+
+ - GIVEN the frontend landing page is loaded.
+ - WHEN the backend receives the GET request.
+ - THEN the entrypoint layer will use the application layer to get all postcodes using the infrastructure layer, ordered in alphabetical order (additional requirement).
+
+ - GIVEN a search request is sent.
+ - WHEN the entrypoint layer receives the request.
+ - THEN the application layer will call on the onfrastructure layer to return a filtered result.
+
+ - GIVEN a healthcheck request is sent.
+ - WHEN the entrypoint layer receives the request.
+ - THEN the entrypoint layer will return a simple healthcheck response.
+
 ### Containerisation
 
 Docker will be use to containerise and run the backend. Since this is a simple implementation, one container running all the backend code will suffice. A network will need to be created to link the backend and frontend containers together. 
