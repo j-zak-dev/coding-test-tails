@@ -3,7 +3,10 @@ repos:
     rev: v0.4.4
     hooks:
       - id: ruff
+        stages: [pre-commit]
+      
       - id: ruff-format
+        stages: [pre-commit]
 
   - repo: local
     hooks:
@@ -13,4 +16,4 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
-        stages: [pre-push]
+        stages: [pre-commit]
