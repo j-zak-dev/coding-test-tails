@@ -14,7 +14,7 @@ class StoreInterface(ABC):
 
     @abstractmethod
     def search_stores_by_name(self, name: StoreName) -> List[Store]:
-        """Returns a list of stores that match the given namesssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss."""
+        """Returns a list of stores that match the given names."""
         ...
 
     @abstractmethod
