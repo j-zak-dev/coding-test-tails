@@ -199,11 +199,13 @@ flowchart TB;
 ### Domain Aggregates
 
  - Store
+   - StoreID
    - StoreName
    - Postcode
    - LatAndLong
 
 ### Domain Value Objects
+ - StoreID: uuid
  - Storename: string 
  - Postcode: string
  - LatAndLong: 
