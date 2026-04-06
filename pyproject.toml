@@ -8,3 +8,8 @@ select = ["E", "F", "I", "B"]
 ignore = ["E501"]
 fixable = ["ALL"]
 unfixable = ["F401"]
+
+[tool.pytest.ini_options]
+testpaths = ["src/backend/tests"]
+pythonpath = ["src"]
+addopts = "-v"
