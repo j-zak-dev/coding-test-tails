@@ -108,6 +108,10 @@ The wireframe diagrams below showcase 2 main states within the program. The firs
    - GIVEN a user is at the top of the page.
    - WHEN the user scroll down to view more stores in the main store list.
    - THEN aside from the first three results, more results will be lazy loaded upon scrolling further.
+---
+   - GIVEN a user selects the option to search by postcode
+   - WHEN the user begins typing a valid postcode
+   - THEN hinting should appear, and functionality should remain the same as for searching by name
 
 ### Containerisation:
 - Docker will be used for the frontend, one container will suffice here similarly to the backend, a network will need to be constructed to link both containers together.
