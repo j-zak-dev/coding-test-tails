@@ -14,5 +14,5 @@ class StoreID:
             raise ValueError("Store ID cannot exceed 36 characters.")
 
     def id(self) -> str:
-        """Returns the store ID."""
+        """Returns the store ID. This is a test for lint and tests."""
         return str(self.storeId)
