@@ -134,7 +134,8 @@ flowchart TB;
    - `stores.json`
       - (data store)
 - `tests/`
-   - `unit/`
+   - `domain/`
+      -`valueObjects/`
 - `configs/`
    - `lint.yaml` 
       - (check code before commit)

@@ -7,6 +7,8 @@ class LatAndLong:
     
     def __post_init__(self):
         """Validates the latitude and longitude."""
+        if self.latitude is None or self.longitude is None:
+            raise ValueError("Latitude or Longitude cannot be empty.")
         if not (-90 <= self.latitude <= 90):
             raise ValueError("Latitude must be between -90 and 90 degrees.")
         if not (-180 <= self.longitude <= 180):

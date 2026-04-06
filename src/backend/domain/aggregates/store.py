@@ -1,7 +1,7 @@
-from domain.valueObjects.latandLong import LatAndLong
-from domain.valueObjects.storeId import StoreID
-from domain.valueObjects.storeName import StoreName
-from domain.valueObjects.postcode import Postcode
+from backend.domain.valueObjects.latAndLong import LatAndLong
+from backend.domain.valueObjects.storeId import StoreID
+from backend.domain.valueObjects.storeName import StoreName
+from backend.domain.valueObjects.postcode import Postcode
 
 class StoreObject:
     def __init__(self,id: StoreID, name: StoreName, postcode: Postcode, latAndLong: LatAndLong):
