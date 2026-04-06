@@ -134,7 +134,8 @@ flowchart TB;
    - `stores.json`
       - (data store)
 - `tests/`
-   - `unit/`
+   - `domain/`
+      -`valueObjects/`
 - `configs/`
    - `lint.yaml` 
       - (check code before commit)
@@ -199,11 +200,13 @@ flowchart TB;
 ### Domain Aggregates
 
  - Store
+   - StoreID
    - StoreName
    - Postcode
    - LatAndLong
 
 ### Domain Value Objects
+ - StoreID: uuid
  - Storename: string 
  - Postcode: string
  - LatAndLong: 
