@@ -11,5 +11,5 @@ unfixable = ["F401"]
 
 [tool.pytest.ini_options]
 testpaths = ["src/backend/tests"]
-pythonpath = ["src"]
+pythonpath = ["src/backend"]
 addopts = "-v"
