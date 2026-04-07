@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from backend.domain.aggregates.store import Store
-from backend.domain.valueObjects.postcode import Postcode
-from backend.domain.valueObjects.storeName import StoreName
+from domain.aggregates.store import Store
+from domain.valueObjects.postcode import Postcode
+from domain.valueObjects.storeName import StoreName
 
 
 class StoreInterface(ABC):

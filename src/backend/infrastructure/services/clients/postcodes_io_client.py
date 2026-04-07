@@ -10,5 +10,5 @@ def get_lat_and_long_from_postcode(postcode):
         if data["status"] == 200:
             result = data["result"]
             return [result["latitude"], result["longitude"]]
-
-    raise ValueError(f"Could not retrieve latitude and longitude for postcode: {postcode}")
+    else:
+        return [0.0, 0.0]  # Default value if the API call fails or returns an error
