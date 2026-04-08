@@ -15,6 +15,3 @@ class StoreName:
     def __value__(self) -> str:
         """Returns the name of the store."""
         return self.name
-
-
-## TO DO: Rename the method that gets the value, consider using a magic method.

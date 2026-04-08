@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True, slots=True)
 class StoreID:
-    storeId: uuid.UUID
+    storeId: uuid.UUID  ## TO DO: Move this to the repository in infrastructure.
 
     def __post_init__(self):
         """Validates the store ID."""
@@ -16,6 +16,3 @@ class StoreID:
     def __value__(self) -> str:
         """Returns the store ID."""
         return str(self.storeId)
-
-
-## TO DO: Rename the method that gets the value, consider using a magic method.
