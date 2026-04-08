@@ -18,3 +18,6 @@ class LatAndLong:
     def values(self) -> list[float]:
         """Returns the latitude and longitude as a list."""
         return [self.latitude, self.longitude]
+
+
+## TO DO: Rename the method that gets the value, consider using a magic method.

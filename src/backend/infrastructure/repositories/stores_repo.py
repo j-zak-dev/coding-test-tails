@@ -3,6 +3,7 @@ from pathlib import Path
 
 import infrastructure.services.mappers.mappers as mappers
 from domain.interfaces.storeInterface import StoreInterface
+from infrastructure.services.clients.postcodes_io_client import get_lat_and_long_from_postcode
 
 
 class StoresRepo(StoreInterface):
@@ -15,18 +16,21 @@ class StoresRepo(StoreInterface):
             self.data = data
 
     def get_all_stores(self):
+        for store in self.data:
+            if "latAndLong" not in store:
+                store["latAndLong"] = get_lat_and_long_from_postcode(store["postcode"])
+
         all_stores = [mappers.map_store_to_domain(store) for store in self.data]
-        print(all_stores)
         return all_stores
 
     def search_stores_by_name(self, name):
         filtered_stores = [
-            store for store in self.get_all_stores() if store._name.value == name.value
+            store for store in self.get_all_stores() if store._name.__value__() == name
         ]
-        return [mappers.map_store_to_domain(store) for store in filtered_stores]
+        return filtered_stores
 
     def search_store_by_postcode(self, postcode):
         filtered_stores = [
-            store for store in self.get_all_stores() if store._postcode.value == postcode.value
+            store for store in self.get_all_stores() if store._postcode.__value__() == postcode
         ]
-        return [mappers.map_store_to_domain(store) for store in filtered_stores]
+        return filtered_stores

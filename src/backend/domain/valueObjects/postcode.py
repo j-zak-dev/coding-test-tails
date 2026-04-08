@@ -12,6 +12,8 @@ class Postcode:
         if len(self.postcode) > 8:
             raise ValueError("Postcode cannot exceed 8 characters.")
 
-    def postcode(self) -> str:
+    def __value__(self) -> str:
         """Returns the postcode."""
         return self.postcode
+
+    ## TO DO: Rename the method that gets the value, consider using a magic method.

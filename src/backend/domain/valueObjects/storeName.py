@@ -12,6 +12,9 @@ class StoreName:
         if len(self.name) > 50:
             raise ValueError("Store name cannot exceed 50 characters.")
 
-    def name(self) -> str:
+    def __value__(self) -> str:
         """Returns the name of the store."""
         return self.name
+
+
+## TO DO: Rename the method that gets the value, consider using a magic method.
