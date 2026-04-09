@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True, slots=True)
 class StoreID:
-    storeId: uuid.UUID  ## TO DO: Move this to the repository in infrastructure.
+    storeId: uuid.UUID
 
     def __post_init__(self):
         """Validates the store ID."""

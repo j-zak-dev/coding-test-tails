@@ -1,4 +1,5 @@
 import json
+import uuid
 from pathlib import Path
 
 import infrastructure.services.mappers.mappers as mappers
@@ -20,6 +21,7 @@ class StoresRepo(StoreInterface):
 
     def get_all_stores(self):
         for store in self.data:
+            store["id"] = uuid.uuid4()
             if not self.mocky or self.override_mocky:
                 store["latAndLong"] = get_lat_and_long_from_postcode(store["postcode"])
             else:
