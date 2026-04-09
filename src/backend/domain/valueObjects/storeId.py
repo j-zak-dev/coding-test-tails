@@ -13,6 +13,6 @@ class StoreID:
         if len(str(self.storeId)) > 36:
             raise ValueError("Store ID cannot exceed 36 characters.")
 
-    def id(self) -> str:
+    def __value__(self) -> str:
         """Returns the store ID."""
         return str(self.storeId)

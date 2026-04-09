@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class StoreName:
     name: str
 
@@ -12,6 +12,6 @@ class StoreName:
         if len(self.name) > 50:
             raise ValueError("Store name cannot exceed 50 characters.")
 
-    def name(self) -> str:
+    def __value__(self) -> str:
         """Returns the name of the store."""
         return self.name

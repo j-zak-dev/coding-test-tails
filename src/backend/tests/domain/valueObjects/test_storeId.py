@@ -9,7 +9,7 @@ def test_valid_store_id():
     print(len(str(valid_id)))
     store_id = StoreID(valid_id)
 
-    assert store_id.id() == str(valid_id)
+    assert store_id.__value__() == str(valid_id)
 
 
 def test_empty_store_id():
