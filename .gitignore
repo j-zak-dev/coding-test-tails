@@ -6,3 +6,7 @@
 .env
 .venv
 __pycache__
+src/frontend/coding-test-fe/node_modules/
+src/frontend/coding-test-fe/dist/
+src/frontend/coding-test-fe/.env.local
+src/frontend/coding-test-fe/.env.*.local
