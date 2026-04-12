@@ -119,6 +119,9 @@ flowchart TB;
       - (implements interfaces and DTOs to build up responses)
    - `dtos/` 
       - (Request and response models)
+   - `mappers/`
+      - `to_domain`
+      - `to_dto`
 - `Domain/`
    - `value-objects/` 
       - (Business logic)
@@ -131,11 +134,16 @@ flowchart TB;
 - `Infrastructure/`
    - `repositories/` 
       - (code regarding the return of data)
-   - `stores.json`
-      - (data store)
+   - `services/`
+      - `clients/`
+      - `mappers/`
+   - `data/`
+      - `stores.json`
 - `tests/`
    - `domain/`
       -`valueObjects/`
+   - `infrastructure/`
+      - `repositories/`
 - `configs/`
    - `lint.yaml` 
       - (check code before commit)
@@ -206,12 +214,26 @@ flowchart TB;
    - LatAndLong
 
 ### Domain Value Objects
- - StoreID: uuid
- - Storename: string 
+ - StoreID: uuid <- This is an example of an ID implementation to highlight exclusion from DTO's
+ - StoreName: string 
  - Postcode: string
  - LatAndLong: 
    - latitude: float
    - longitude: float
+
+### Application DTO's
+
+ - StoreResponseDTO
+   - name: str
+   - postcode: str
+   - coordinates: List[float]
+
+ - SearchStoreResponseDTO: 
+   - name: Optional[str]
+   - postcode: Optional[str]
+
+ - SearchResponseDTO
+   - stores: List[StoreresponseDTO]
 
 ### Containerisation
 

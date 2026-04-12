@@ -3,3 +3,4 @@
 *.pyc
 *.pyo
 /.ruff_cache
+.env

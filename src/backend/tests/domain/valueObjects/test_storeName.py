@@ -6,7 +6,7 @@ def test_valid_store_name():
     valid_name = "Test Store"
     store_name = storeName.StoreName(valid_name)
 
-    assert store_name.__value__() == valid_name
+    assert store_name.value() == valid_name
 
 
 def test_empty_store_name():
