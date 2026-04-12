@@ -1,3 +1,5 @@
+from domain.valueObjects.postcode import Postcode
+from domain.valueObjects.storeName import StoreName
 from infrastructure.repositories.stores_repo import StoresRepo
 from infrastructure.services.clients.mocky_postcode_io_client import get_mocky_postcode_io_response
 from infrastructure.services.clients.postcodes_io_client import get_lat_and_long_from_postcode
@@ -23,7 +25,7 @@ def test_get_all_stores_uses_mock_data():
 
 def test_search_stores_by_name():
     """Test to check if searching by name returns the correct store"""
-    stores = repo.search_stores_by_name("Mock_Store_2")
+    stores = repo.search_stores_by_name(StoreName("Mock_Store_2"))
     assert len(stores) == 1
     assert stores[0]._name.value() == "Mock_Store_2"
     assert stores[0]._postcode.value() == "BB1 1BB"
@@ -31,7 +33,7 @@ def test_search_stores_by_name():
 
 def test_search_store_by_postcode():
     """Test to check if searching by postcode returns the correct store"""
-    stores = repo.search_store_by_postcode("CC1 1CC")
+    stores = repo.search_store_by_postcode(Postcode("CC1 1CC"))
     assert len(stores) == 1
     assert stores[0]._name.value() == "Mock_Store_3"
     assert stores[0]._postcode.value() == "CC1 1CC"

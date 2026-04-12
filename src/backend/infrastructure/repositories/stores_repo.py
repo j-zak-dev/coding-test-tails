@@ -1,6 +1,8 @@
 import uuid
 
 from domain.interfaces.storeInterface import StoreInterface
+from domain.valueObjects.postcode import Postcode
+from domain.valueObjects.storeName import StoreName
 from infrastructure.services.mappers import mappers
 
 
@@ -20,12 +22,14 @@ class StoresRepo(StoreInterface):
         all_stores = [mappers.map_store_to_domain(store) for store in stores_for_mapping]
         return all_stores
 
-    def search_stores_by_name(self, name):
-        filtered_stores = [store for store in self.get_all_stores() if store._name.value() == name]
+    def search_stores_by_name(self, name: StoreName):
+        filtered_stores = [
+            store for store in self.get_all_stores() if store._name.value() == name.value()
+        ]
         return filtered_stores
 
-    def search_store_by_postcode(self, postcode):
+    def search_store_by_postcode(self, postcode: Postcode):
         filtered_stores = [
-            store for store in self.get_all_stores() if store._postcode.value() == postcode
+            store for store in self.get_all_stores() if store._postcode.value() == postcode.value()
         ]
         return filtered_stores

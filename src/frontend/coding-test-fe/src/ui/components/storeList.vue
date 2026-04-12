@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import type { Store } from '../../domain/aggregates/Store'
+
 defineProps<{
-  stores: Array<{ name: string; postcode: string }>
+  stores: Store[]
 }>()
 </script>
 
@@ -9,7 +11,7 @@ defineProps<{
     <h2>Store List</h2>
     <ul>
       <li v-for="store in stores" :key="store.name">
-        {{ store.name }} - {{ store.postcode }}
+        {{ store.name }} - {{ store.postalCode }}
       </li>
     </ul>
   </div>
