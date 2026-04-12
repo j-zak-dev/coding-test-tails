@@ -31,13 +31,11 @@ class StoresRepo(StoreInterface):
         return all_stores
 
     def search_stores_by_name(self, name):
-        filtered_stores = [
-            store for store in self.get_all_stores() if store._name.__value__() == name
-        ]
+        filtered_stores = [store for store in self.get_all_stores() if store._name.value() == name]
         return filtered_stores
 
     def search_store_by_postcode(self, postcode):
         filtered_stores = [
-            store for store in self.get_all_stores() if store._postcode.__value__() == postcode
+            store for store in self.get_all_stores() if store._postcode.value() == postcode
         ]
         return filtered_stores

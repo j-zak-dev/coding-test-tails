@@ -13,8 +13,8 @@ def test_get_all_stores_uses_mock_data():
     stores = repo.get_all_stores()
 
     for index, store in enumerate(stores):
-        assert store._name.__value__() == f"Mock_Store_{index + 1}"
-        assert store._postcode.__value__() == mock_stores[index]["postcode"]
+        assert store._name.value() == f"Mock_Store_{index + 1}"
+        assert store._postcode.value() == mock_stores[index]["postcode"]
         assert hasattr(store, "_latAndLong")
     assert len(stores) == 3
 
@@ -31,8 +31,8 @@ def test_search_stores_by_name():
     stores = repo.search_stores_by_name("Mock_Store_2")
 
     assert len(stores) == 1
-    assert stores[0]._name.__value__() == "Mock_Store_2"
-    assert stores[0]._postcode.__value__() == "BB1 1BB"
+    assert stores[0]._name.value() == "Mock_Store_2"
+    assert stores[0]._postcode.value() == "BB1 1BB"
 
 
 def test_search_store_by_postcode():
@@ -47,8 +47,8 @@ def test_search_store_by_postcode():
     stores = repo.search_store_by_postcode("CC1 1CC")
 
     assert len(stores) == 1
-    assert stores[0]._name.__value__() == "Mock_Store_3"
-    assert stores[0]._postcode.__value__() == "CC1 1CC"
+    assert stores[0]._name.value() == "Mock_Store_3"
+    assert stores[0]._postcode.value() == "CC1 1CC"
 
 
 def test_get_all_stores_with_mocky_override():
@@ -62,8 +62,8 @@ def test_get_all_stores_with_mocky_override():
     stores = repo.get_all_stores()
 
     for index, store in enumerate(stores):
-        assert store._name.__value__() == f"Mock_Store_{index + 1}"
-        assert store._postcode.__value__() == mock_stores[index]["postcode"]
+        assert store._name.value() == f"Mock_Store_{index + 1}"
+        assert store._postcode.value() == mock_stores[index]["postcode"]
         assert hasattr(store, "_latAndLong")
         assert store._latAndLong.values() != [
             0.0,
