@@ -37,7 +37,7 @@ def test_search_store_by_postcode():
     assert stores[0]._postcode.value() == "CC1 1CC"
 
 
-def test_get_all_stores_with_mocky_override():
+def test_postcodes_io_integration():
     """Test to check if the call to postcodes.io works correctly."""
     mock_stores = [
         {"name": "Mock_Store_1", "postcode": "SO50 5GD"},
