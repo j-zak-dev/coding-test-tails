@@ -1,7 +1,7 @@
 from typing import Annotated
 
 from application.services.store_service import StoreService
-from backend.dependencies import get_store_service
+from dependencies import get_store_service
 from fastapi import APIRouter, Depends
 
 router = APIRouter()
