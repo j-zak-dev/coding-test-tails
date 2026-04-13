@@ -15,6 +15,8 @@ This file serves as the "how" and "why" of the implementation for the frontend.
  - ### Software Design Philosophy:
     - DDD
       - Offers good separation of UI, Infrastructure, domain logic, application logic
+   - TDD/BDD (lite)
+      - Since the frontend contains a lot of functionality, BDD allows for outlining this functionality ready for implementation using the Gherkin syntax. While this is not a full implementation of BDD, at the very least it contains the same spirit.
  - ### Testing:
     - Vitest
       - Popular choice and used at Tails
@@ -49,7 +51,7 @@ This file serves as the "how" and "why" of the implementation for the frontend.
          - (Contains the search bar and list of stores)
 - `application/`
    - `services`
-      - (Use DTO's and interfaces to build up responses)
+      - (Use DTO's and interfaces to build up requests/responses)
    - `dtos`
       - (contains response and request DTO's)
 - `domain/`

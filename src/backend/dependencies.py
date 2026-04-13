@@ -8,9 +8,11 @@ from infrastructure.repositories.stores_repo import StoresRepo
 from infrastructure.services.clients.mocky_postcode_io_client import get_mocky_postcode_io_response
 from infrastructure.services.clients.postcodes_io_client import get_lat_and_long_from_postcode
 
+BACKEND_ROOT = Path(__file__).resolve().parent
+
 
 def _load_env_file() -> None:
-    env_path = Path(__file__).resolve().parents[1] / ".env"
+    env_path = BACKEND_ROOT / ".env"
     if not env_path.exists():
         return
 
@@ -30,7 +32,7 @@ _load_env_file()
 
 
 def get_store_repository() -> StoreInterface:
-    data_path = Path(__file__).resolve().parents[1] / "infrastructure" / "data" / "stores.json"
+    data_path = BACKEND_ROOT / "infrastructure" / "data" / "stores.json"
     with data_path.open("r", encoding="utf-8") as file:
         data = json.load(file)
 

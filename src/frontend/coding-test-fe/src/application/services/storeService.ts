@@ -1,0 +1,30 @@
+import type { Store } from '../../domain/aggregates/Store'
+import type { StoreInterface } from '../../domain/interfaces/storeInterface'
+
+export class StoreService {
+  private readonly storeRepository: StoreInterface
+
+  constructor(storeRepository: StoreInterface) {
+    this.storeRepository = storeRepository
+  }
+
+  async getAllStores(): Promise<Store[]> {
+    return this.storeRepository.getAll()
+  }
+
+  async searchStoresByName(name: string): Promise<Store[]> {
+    const query = name.trim()
+    if (!query) {
+      return this.getAllStores()
+    }
+    return this.storeRepository.searchByName(query)
+  }
+
+  async searchStoresByPostalCode(postalCode: string): Promise<Store[]> {
+    const query = postalCode.trim()
+    if (!query) {
+      return this.getAllStores()
+    }
+    return this.storeRepository.searchByPostalCode(query)
+  }
+}

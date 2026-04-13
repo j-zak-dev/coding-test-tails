@@ -1,5 +1,7 @@
 from application.mappers.to_dto.DTOStoreMapper import DTOStoreMapper
 from domain.interfaces.storeInterface import StoreInterface
+from domain.valueObjects.postcode import Postcode
+from domain.valueObjects.storeName import StoreName
 
 
 class StoreService:
@@ -11,9 +13,9 @@ class StoreService:
         return [DTOStoreMapper.to_store_response_dto(store) for store in stores]
 
     def search_stores_by_name(self, name):
-        stores = self.store_repository.search_stores_by_name(name)
+        stores = self.store_repository.search_stores_by_name(StoreName(name))
         return [DTOStoreMapper.to_store_response_dto(store) for store in stores]
 
     def search_store_by_postcode(self, postcode):
-        stores = self.store_repository.search_store_by_postcode(postcode)
+        stores = self.store_repository.search_store_by_postcode(Postcode(postcode))
         return [DTOStoreMapper.to_store_response_dto(store) for store in stores]
