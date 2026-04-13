@@ -30,6 +30,24 @@ def test_search_stores_by_name():
     assert stores[0]._postcode.value() == "BB1 1BB"
 
 
+def test_check_correct_store_ordering():
+    """Test to check if the stores are ordered correctly by postcode."""
+
+    mock_stores = [
+        {"name": "Mock_Store_3", "postcode": "CC1 1CC"},
+        {"name": "Mock_Store_1", "postcode": "AA1 1AA"},
+        {"name": "Mock_Store_2", "postcode": "BB1 1BB"},
+    ]
+
+    repo = StoresRepo(get_coords_fn=get_mocky_postcode_io_response, data=mock_stores)
+
+    stores = repo.search_stores_by_name(StoreName("Mock_Store"))
+    assert len(stores) == 3
+    assert stores[0]._postcode.value() == "AA1 1AA"
+    assert stores[1]._postcode.value() == "BB1 1BB"
+    assert stores[2]._postcode.value() == "CC1 1CC"
+
+
 def test_postcodes_io_integration():
     """Test to check if the call to postcodes.io works correctly."""
     mock_stores = [
