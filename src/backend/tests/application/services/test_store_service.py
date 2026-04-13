@@ -27,10 +27,3 @@ def test_search_stores_by_name(store_service):
     assert isinstance(stores, list)
     assert len(stores) == 1
     assert stores[0].name == "Mock_Store_2"
-
-
-def test_search_store_by_postcode(store_service):
-    stores = store_service.search_store_by_postcode("CC1 1CC")
-    assert isinstance(stores, list)
-    assert len(stores) == 1
-    assert stores[0].postcode == "CC1 1CC"

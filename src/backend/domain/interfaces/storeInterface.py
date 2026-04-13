@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from typing import List
 
 from domain.aggregates.store import Store
-from domain.valueObjects.postcode import Postcode
 from domain.valueObjects.storeName import StoreName
 
 
@@ -15,9 +14,4 @@ class StoreInterface(ABC):
     @abstractmethod
     def search_stores_by_name(self, name: StoreName) -> List[Store]:
         """Returns a list of stores that match the given names."""
-        ...
-
-    @abstractmethod
-    def search_store_by_postcode(self, postcode: Postcode) -> List[Store]:
-        """Returns a list of stores that match the given postcode."""
         ...

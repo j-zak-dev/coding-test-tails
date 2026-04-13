@@ -46,14 +46,3 @@ def test_search_stores_by_name_endpoint(client):
     assert len(data) == 1
     assert data[0]["name"] == "Mock_Store_2"
     assert data[0]["postcode"] == "BB1 1BB"
-
-
-def test_search_store_by_postcode_endpoint(client):
-    response = client.get("/stores/search_by_postcode/CC1 1CC")
-
-    assert response.status_code == 200
-    data = response.json()
-    assert isinstance(data, list)
-    assert len(data) == 1
-    assert data[0]["name"] == "Mock_Store_3"
-    assert data[0]["postcode"] == "CC1 1CC"
