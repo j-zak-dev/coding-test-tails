@@ -1,6 +1,6 @@
-import type { Store } from '../../domain/aggregates/Store'
+import type { Store, RichStore } from '../../domain/aggregates/Store'
 import type { StoreInterface } from '../../domain/interfaces/storeInterface'
-import type { StoreApiDTO } from '../dtos/StoreApiDTO'
+import type { RichStoreApiDTO, StoreApiDTO } from '../dtos/StoreApiDTO'
 import { mapStoreApiDtoToDomain } from '../mappers/storeMapper'
 
 export class ApiStoreRepository implements StoreInterface {
@@ -20,16 +20,6 @@ export class ApiStoreRepository implements StoreInterface {
         return data.map(mapStoreApiDtoToDomain)
     }
 
-    async searchByPostalCode(postalCode: string): Promise<Store[]> {
-        const response = await fetch(`${this.apiUrl}/stores/search_by_postcode/${postalCode}`)
-        if (!response.ok) {
-            throw new Error('Failed to search stores by postal code')
-        }
-
-        const data = (await response.json()) as StoreApiDTO[]
-        return data.map(mapStoreApiDtoToDomain)
-    }
-
     async searchByName(name: string): Promise<Store[]> {
         const response = await fetch(`${this.apiUrl}/stores/search_by_name/${name}`)
         if (!response.ok) {
@@ -39,4 +29,15 @@ export class ApiStoreRepository implements StoreInterface {
         const data = (await response.json()) as StoreApiDTO[]
         return data.map(mapStoreApiDtoToDomain)
     }
-}
+
+    async getEnrichedByName(name: string): Promise<RichStore[]> {
+        const params = new URLSearchParams({ name })
+        const response = await fetch(`${this.apiUrl}/stores/enriched_search_by_name?${params.toString()}`)
+        if (!response.ok) {
+            throw new Error('Failed to search enriched stores by name')
+        }
+
+        const data = (await response.json()) as RichStoreApiDTO[]
+        return data.map(mapStoreApiDtoToDomain)
+    }
+} 

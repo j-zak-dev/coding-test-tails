@@ -18,7 +18,6 @@ def test_get_all_stores_uses_mock_data():
     for index, store in enumerate(stores):
         assert store._name.value() == f"Mock_Store_{index + 1}"
         assert store._postcode.value() == mock_stores[index]["postcode"]
-        assert hasattr(store, "_latAndLong")
     assert len(stores) == 3
 
 
@@ -61,9 +60,4 @@ def test_postcodes_io_integration():
     for index, store in enumerate(stores):
         assert store._name.value() == f"Mock_Store_{index + 1}"
         assert store._postcode.value() == mock_stores[index]["postcode"]
-        assert hasattr(store, "_latAndLong")
-        assert store._latAndLong.values() != [
-            0.0,
-            0.0,
-        ]  # Check that lat and long are assigned correctly
     assert len(stores) == 2

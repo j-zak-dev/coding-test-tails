@@ -1,8 +1,10 @@
-from typing import List
-
-
 class StoreResponseDTO:
-    def __init__(self, name: str, postcode: str, latAndLong: List[float]):
+    def __init__(self, name: str, postcode: str):
         self.name = name
         self.postcode = postcode
+
+
+class RichStoreResponseDTO(StoreResponseDTO):
+    def __init__(self, name: str, postcode: str, latAndLong: tuple):
+        super().__init__(name, postcode)
         self.latAndLong = latAndLong

@@ -22,7 +22,7 @@ async function searchStoresByName() {
   loading.value = true
   errorMessage.value = ''
   try {
-    stores.value = await storeService.searchStoresByName(nameSearchQuery.value)
+    stores.value = await storeService.getEnrichedStores(nameSearchQuery.value)
   } catch {
     errorMessage.value = 'Search failed. Please try again.'
   } finally {

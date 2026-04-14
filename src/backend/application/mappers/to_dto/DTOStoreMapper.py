@@ -1,5 +1,5 @@
-from application.dtos.store_response_dto import StoreResponseDTO
-from domain.aggregates.store import Store
+from application.dtos.store_response_dto import RichStoreResponseDTO, StoreResponseDTO
+from domain.aggregates.store import RichStore, Store
 
 
 class DTOStoreMapper:
@@ -8,5 +8,14 @@ class DTOStoreMapper:
         return StoreResponseDTO(
             name=store._name.value(),
             postcode=store._postcode.value(),
-            latAndLong=store._latAndLong.values(),
+        )
+
+
+class DTORichStoreMapper:
+    @staticmethod
+    def to_rich_store_response_dto(store: RichStore) -> RichStoreResponseDTO:
+        return RichStoreResponseDTO(
+            name=store._name.value(),
+            postcode=store._postcode.value(),
+            latAndLong=(store._latAndLong.latitude, store._latAndLong.longitude),
         )
