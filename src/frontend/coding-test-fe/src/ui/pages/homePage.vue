@@ -1,30 +1,47 @@
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref, watch } from 'vue'
 
 import { StoreService } from '../../application/services/storeService'
-import type { Store } from '../../domain/aggregates/Store'
+import type { Store, RichStore } from '../../domain/aggregates/Store'
 import { ApiStoreRepository } from '../../infrastructure/repositories/ApiStoreRepository'
 import searchBar from '../components/searchBar.vue'
 import storeList from '../components/storeList.vue'
 import titleAndSubText from '../components/titleAndSubText.vue'
 
-const stores = ref<Store[]>([])
+const searchSuggestions = ref<Store[]>([])
+const stores = ref<RichStore[]>([])
 const loading = ref(false)
 const errorMessage = ref('')
 const nameSearchQuery = ref('')
-const postalCodeSearchQuery = ref('')
 
 const apiBaseUrl = import.meta.env.VITE_API_URL ?? 'http://127.0.0.1:8000'
 const storeService = new StoreService(new ApiStoreRepository(apiBaseUrl))
 
-async function searchStoresByName() {
+watch(nameSearchQuery, async (value) => {
+  await searchStoresByName(value)
+})
+
+async function searchStoresByName(name: string) {
+  if (!name.trim()) {
+    searchSuggestions.value = []
+    return
+  }
+
+  try {
+    searchSuggestions.value = await storeService.searchStoresByName(name)
+  } catch {
+    errorMessage.value = 'Failed to update suggestions. Please try again.'
+  }
+}
+
+async function getEnrichedStores() {
   loading.value = true
   errorMessage.value = ''
   try {
     stores.value = await storeService.getEnrichedStores(nameSearchQuery.value)
   } catch {
-    errorMessage.value = 'Search failed. Please try again.'
+    errorMessage.value = 'Failed to load stores. Please try again.'
   } finally {
     loading.value = false
   }
@@ -37,7 +54,7 @@ async function searchStoresByName() {
     title="Welcome to the coding test!"
     subText="This is the home page. You can find the instructions for the test in the README file."
   />
-  <searchBar v-model="nameSearchQuery" placeholder="Search for stores by name..." @submit="searchStoresByName" />
+  <searchBar v-model="nameSearchQuery" :suggestions="searchSuggestions" placeholder="Search for stores by name..." @submit="getEnrichedStores" />
   <p v-if="loading">Loading stores...</p>
   <p v-if="errorMessage">{{ errorMessage }}</p>
   <storeList v-if="!loading && !errorMessage" :stores="stores" />
