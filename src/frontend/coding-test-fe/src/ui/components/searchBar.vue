@@ -29,10 +29,9 @@ function onSuggestionClick(suggestion: Store) {
     <input v-model="model" type="text" :placeholder="props.placeholder" />
     <div class="dropdown">
       <ul class="search-suggestions" v-if="model">
-        <li v-for="suggestion in props.suggestions" :key="suggestion.name" @click="onSuggestionClick(suggestion)">{{ suggestion.name }}</li>
+        <li class="search-suggestion" v-for="suggestion in props.suggestions" :key="suggestion.name" @click="onSuggestionClick(suggestion)">{{ suggestion.name }}</li>
       </ul>
     </div>
-    <button type="submit">Search</button>
   </form>
 </template>
 
@@ -68,5 +67,10 @@ function onSuggestionClick(suggestion: Store) {
   max-height: 200px;
   overflow-y: auto;
   width: 50%;
+}
+
+.search-suggestion:hover {
+  background-color: #e0e0e0;
+  cursor: pointer;
 }
 </style>

@@ -1,7 +1,7 @@
 import type { Store, RichStore } from '../../domain/aggregates/Store'
 import type { StoreInterface } from '../../domain/interfaces/storeInterface'
 import type { RichStoreApiDTO, StoreApiDTO } from '../dtos/StoreApiDTO'
-import { mapStoreApiDtoToDomain } from '../mappers/storeMapper'
+import { mapStoreApiDtoToDomain, mapStoreNameToBackend } from '../mappers/storeMapper'
 
 export class ApiStoreRepository implements StoreInterface {
     private apiUrl: string
@@ -21,6 +21,7 @@ export class ApiStoreRepository implements StoreInterface {
     }
 
     async searchByName(name: string): Promise<Store[]> {
+        name = mapStoreNameToBackend(name)
         const response = await fetch(`${this.apiUrl}/stores/search_by_name/${name}`)
         if (!response.ok) {
             throw new Error('Failed to search stores by name')
@@ -31,6 +32,7 @@ export class ApiStoreRepository implements StoreInterface {
     }
 
     async getEnrichedByName(name: string): Promise<RichStore[]> {
+        name = mapStoreNameToBackend(name)
         const params = new URLSearchParams({ name })
         const response = await fetch(`${this.apiUrl}/stores/enriched_search_by_name?${params.toString()}`)
         if (!response.ok) {
