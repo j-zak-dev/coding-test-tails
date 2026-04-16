@@ -1,6 +1,5 @@
-from application.mappers.to_dto.DTOStoreMapper import DTOStoreMapper
+from application.mappers.to_dto.DTOStoreMapper import DTORichStoreMapper, DTOStoreMapper
 from domain.interfaces.storeInterface import StoreInterface
-from domain.valueObjects.postcode import Postcode
 from domain.valueObjects.storeName import StoreName
 
 
@@ -16,6 +15,6 @@ class StoreService:
         stores = self.store_repository.search_stores_by_name(StoreName(name))
         return [DTOStoreMapper.to_store_response_dto(store) for store in stores]
 
-    def search_store_by_postcode(self, postcode):
-        stores = self.store_repository.search_store_by_postcode(Postcode(postcode))
-        return [DTOStoreMapper.to_store_response_dto(store) for store in stores]
+    def get_enriched_stores(self, name):
+        stores = self.store_repository.get_enriched_stores(StoreName(name))
+        return [DTORichStoreMapper.to_rich_store_response_dto(store) for store in stores]

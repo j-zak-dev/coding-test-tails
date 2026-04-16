@@ -1,7 +1,14 @@
-import type { Store } from '../../domain/aggregates/Store'
-import type { StoreApiDTO } from '../dtos/StoreApiDTO'
+import type { RichStore, Store } from '../../domain/aggregates/Store'
+import type { RichStoreApiDTO, StoreApiDTO } from '../dtos/StoreApiDTO'
 
 export function mapStoreApiDtoToDomain(dto: StoreApiDTO): Store {
+  return {
+    name: dto.name,
+    postalCode: dto.postcode,
+  }
+}
+
+export function mapRichStoreApiDtoToDomain(dto: RichStoreApiDTO): RichStore {
   return {
     name: dto.name,
     postalCode: dto.postcode,

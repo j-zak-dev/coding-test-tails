@@ -22,9 +22,20 @@ def search_stores_by_name(
     return store_service.search_stores_by_name(name)
 
 
-@router.get("/stores/search_by_postcode/{postcode}")
-def search_store_by_postcode(
-    postcode: str,
+@router.get("/stores/enriched_search_by_name")
+def get_enriched_stores_by_name_query(
+    store_service: Annotated[StoreService, Depends(get_store_service)],
+    name: str = "",
+):
+    normalized_name = name.strip()
+    if not normalized_name:
+        return store_service.get_all_stores()
+    return store_service.get_enriched_stores(normalized_name)
+
+
+@router.get("/stores/enriched_search_by_name/{name}")
+def get_enriched_stores_by_name(
+    name: str,
     store_service: Annotated[StoreService, Depends(get_store_service)],
 ):
-    return store_service.search_store_by_postcode(postcode)
+    return store_service.get_enriched_stores(name)

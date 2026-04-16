@@ -20,11 +20,11 @@ export class StoreService {
     return this.storeRepository.searchByName(query)
   }
 
-  async searchStoresByPostalCode(postalCode: string): Promise<Store[]> {
-    const query = postalCode.trim()
+  async getEnrichedStores(name: string): Promise<Store[]> {
+    const query = name.trim()
     if (!query) {
       return this.getAllStores()
     }
-    return this.storeRepository.searchByPostalCode(query)
+    return this.storeRepository.getEnrichedByName(query)
   }
 }

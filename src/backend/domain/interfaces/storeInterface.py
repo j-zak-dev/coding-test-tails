@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from domain.aggregates.store import Store
-from domain.valueObjects.postcode import Postcode
+from domain.aggregates.store import RichStore, Store
 from domain.valueObjects.storeName import StoreName
 
 
@@ -18,6 +17,6 @@ class StoreInterface(ABC):
         ...
 
     @abstractmethod
-    def search_store_by_postcode(self, postcode: Postcode) -> List[Store]:
-        """Returns a list of stores that match the given postcode."""
+    def get_enriched_stores(self) -> List[RichStore]:
+        """Returns a list of all stores with enriched data."""
         ...

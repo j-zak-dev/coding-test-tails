@@ -1,4 +1,3 @@
-from domain.valueObjects.postcode import Postcode
 from domain.valueObjects.storeName import StoreName
 from infrastructure.repositories.stores_repo import StoresRepo
 from infrastructure.services.clients.mocky_postcode_io_client import get_mocky_postcode_io_response
@@ -19,7 +18,6 @@ def test_get_all_stores_uses_mock_data():
     for index, store in enumerate(stores):
         assert store._name.value() == f"Mock_Store_{index + 1}"
         assert store._postcode.value() == mock_stores[index]["postcode"]
-        assert hasattr(store, "_latAndLong")
     assert len(stores) == 3
 
 
@@ -31,12 +29,22 @@ def test_search_stores_by_name():
     assert stores[0]._postcode.value() == "BB1 1BB"
 
 
-def test_search_store_by_postcode():
-    """Test to check if searching by postcode returns the correct store"""
-    stores = repo.search_store_by_postcode(Postcode("CC1 1CC"))
-    assert len(stores) == 1
-    assert stores[0]._name.value() == "Mock_Store_3"
-    assert stores[0]._postcode.value() == "CC1 1CC"
+def test_check_correct_store_ordering():
+    """Test to check if the stores are ordered correctly by postcode."""
+
+    mock_stores = [
+        {"name": "Mock_Store_3", "postcode": "CC1 1CC"},
+        {"name": "Mock_Store_1", "postcode": "AA1 1AA"},
+        {"name": "Mock_Store_2", "postcode": "BB1 1BB"},
+    ]
+
+    repo = StoresRepo(get_coords_fn=get_mocky_postcode_io_response, data=mock_stores)
+
+    stores = repo.search_stores_by_name(StoreName("Mock_Store"))
+    assert len(stores) == 3
+    assert stores[0]._postcode.value() == "AA1 1AA"
+    assert stores[1]._postcode.value() == "BB1 1BB"
+    assert stores[2]._postcode.value() == "CC1 1CC"
 
 
 def test_postcodes_io_integration():
@@ -52,9 +60,4 @@ def test_postcodes_io_integration():
     for index, store in enumerate(stores):
         assert store._name.value() == f"Mock_Store_{index + 1}"
         assert store._postcode.value() == mock_stores[index]["postcode"]
-        assert hasattr(store, "_latAndLong")
-        assert store._latAndLong.values() != [
-            0.0,
-            0.0,
-        ]  # Check that lat and long are assigned correctly
     assert len(stores) == 2
