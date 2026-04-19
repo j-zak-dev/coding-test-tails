@@ -2,6 +2,7 @@ import requests
 
 
 def get_lat_and_long_from_postcode(postcode):
+    print("Using postcodes_io_client for coordinates")
     url = f"https://api.postcodes.io/postcodes/{postcode}"
     response = requests.get(url)
 
