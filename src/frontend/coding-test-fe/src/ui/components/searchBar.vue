@@ -21,7 +21,6 @@ function onSuggestionClick(suggestion: Store) {
   model.value = suggestion.name
   onSubmit()
 }
-
 </script>
 
 <template>
