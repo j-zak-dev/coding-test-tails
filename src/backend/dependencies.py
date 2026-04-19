@@ -39,10 +39,8 @@ def get_store_repository() -> StoreInterface:
     use_mocky_postcodes = os.getenv("MOCKY_POSTCODES", "").strip().lower() == "true"
 
     if use_mocky_postcodes:
-        print("Using mocky_postcode_io_client for coordinates")
         coords_fn = get_mocky_postcode_io_response
     else:
-        print("Using postcodes_io_client for coordinates")
         coords_fn = get_lat_and_long_from_postcode
 
     return StoresRepo(get_coords_fn=coords_fn, data=data)

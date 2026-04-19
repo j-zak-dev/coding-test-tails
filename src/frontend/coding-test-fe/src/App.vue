@@ -5,3 +5,7 @@ import homePage from './ui/pages/homePage.vue'
 <template>
   <homePage />
 </template>
+
+<style>
+@import url('main.css');
+</style>

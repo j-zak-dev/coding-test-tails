@@ -1,4 +1,4 @@
-import type { Store } from '../../domain/aggregates/Store'
+import type { RichStore, Store } from '../../domain/aggregates/Store'
 import type { StoreInterface } from '../../domain/interfaces/storeInterface'
 
 export class StoreService {
@@ -20,7 +20,7 @@ export class StoreService {
     return this.storeRepository.searchByName(query)
   }
 
-  async getEnrichedStores(name: string): Promise<Store[]> {
+  async getEnrichedStores(name: string): Promise<RichStore[]> {
     const query = name.trim()
     if (!query) {
       return this.getAllStores()
