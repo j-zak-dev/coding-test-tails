@@ -8,6 +8,7 @@ import { ApiStoreRepository } from '../../infrastructure/repositories/ApiStoreRe
 import searchBar from '../components/searchBar.vue'
 import storeList from '../components/storeList.vue'
 import titleAndSubText from '../components/titleAndSubText.vue'
+import { debounce } from 'lodash'
 
 const searchSuggestions = ref<Store[]>([])
 const stores = ref<RichStore[]>([])
@@ -19,10 +20,10 @@ const apiBaseUrl = import.meta.env.VITE_API_URL ?? 'http://127.0.0.1:8000'
 const storeService = new StoreService(new ApiStoreRepository(apiBaseUrl))
 
 watch(nameSearchQuery, async (value) => {
-  await searchStoresByName(value)
+  await debouncedSearchStoresByName(value)
 })
 
-async function searchStoresByName(name: string) {
+const debouncedSearchStoresByName = debounce(async (name: string) => {
   if (!name.trim()) {
     searchSuggestions.value = []
     return
@@ -33,7 +34,7 @@ async function searchStoresByName(name: string) {
   } catch {
     errorMessage.value = 'Failed to update suggestions. Please try again.'
   }
-}
+}, 100)
 
 async function getEnrichedStores() {
   loading.value = true

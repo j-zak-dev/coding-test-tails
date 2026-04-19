@@ -1,7 +1,7 @@
 import type { Store, RichStore } from '../../domain/aggregates/Store'
 import type { StoreInterface } from '../../domain/interfaces/storeInterface'
 import type { RichStoreApiDTO, StoreApiDTO } from '../dtos/StoreApiDTO'
-import { mapStoreApiDtoToDomain, mapStoreNameToBackend } from '../mappers/storeMapper'
+import { mapStoreApiDtoToDomain, mapRichStoreApiDtoToDomain, mapStoreNameToBackend } from '../mappers/storeMapper'
 
 export class ApiStoreRepository implements StoreInterface {
     private apiUrl: string
@@ -40,6 +40,8 @@ export class ApiStoreRepository implements StoreInterface {
         }
 
         const data = (await response.json()) as RichStoreApiDTO[]
-        return data.map(mapStoreApiDtoToDomain)
+        const enrichedData = data.map(mapRichStoreApiDtoToDomain)
+        console.log('Enriched data:', enrichedData)
+        return enrichedData
     }
 } 

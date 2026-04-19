@@ -15,7 +15,6 @@ class StoresRepo(StoreInterface):
         for store in self.data:
             store_copy = dict(store)
             store_copy["id"] = uuid.uuid4()
-            store_copy["latAndLong"] = self.get_coords_fn(store_copy["postcode"])
             stores_for_mapping.append(store_copy)
 
         all_stores = [mappers.map_store_to_domain_store(store) for store in stores_for_mapping]
@@ -32,7 +31,7 @@ class StoresRepo(StoreInterface):
 
     def get_enriched_stores(self, name: StoreName):
         enriched_stores = []
-        for store in self.get_all_stores():
+        for store in self.search_stores_by_name(name):
             if (
                 name.value().lower() in store._name.value().lower()
                 or name.value().lower() in store._postcode.value().lower()
