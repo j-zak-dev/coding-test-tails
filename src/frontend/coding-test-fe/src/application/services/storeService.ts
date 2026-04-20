@@ -20,11 +20,15 @@ export class StoreService {
     return this.storeRepository.searchByName(query)
   }
 
-  async getEnrichedStores(name: string): Promise<RichStore[]> {
-    const query = name.trim()
-    if (!query) {
-      return this.getAllStores()
+  async getEnrichedStoresByNames(names: string[]): Promise<RichStore[]> {
+    const normalizedNames = names
+      .map((name) => name.trim())
+      .filter((name) => Boolean(name))
+
+    if (normalizedNames.length === 0) {
+      return []
     }
-    return this.storeRepository.getEnrichedByName(query)
+
+    return this.storeRepository.getEnrichedByNames(normalizedNames)
   }
 }

@@ -1,5 +1,6 @@
 from typing import Annotated
 
+from application.dtos.store_response_dto import EnrichedStoresByNamesRequestDTO
 from application.services.store_service import StoreService
 from dependencies import get_store_service
 from fastapi import APIRouter, Depends
@@ -39,3 +40,11 @@ def get_enriched_stores_by_name(
     store_service: Annotated[StoreService, Depends(get_store_service)],
 ):
     return store_service.get_enriched_stores(name)
+
+
+@router.post("/stores/enriched_search_by_names")
+def get_enriched_stores_by_names(
+    payload: EnrichedStoresByNamesRequestDTO,
+    store_service: Annotated[StoreService, Depends(get_store_service)],
+):
+    return store_service.get_enriched_stores_by_names(payload.storeNames)

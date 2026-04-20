@@ -47,6 +47,16 @@ def test_check_correct_store_ordering():
     assert stores[2]._postcode.value() == "CC1 1CC"
 
 
+def test_get_enriched_stores_by_names():
+    stores = repo.get_enriched_stores_by_names(
+        [StoreName("Mock_Store_2"), StoreName("Mock_Store_1")]
+    )
+
+    assert len(stores) == 2
+    assert stores[0]._name.value() == "Mock_Store_2"
+    assert stores[1]._name.value() == "Mock_Store_1"
+
+
 def test_postcodes_io_integration():
     """Test to check if the call to postcodes.io works correctly."""
     mock_stores = [

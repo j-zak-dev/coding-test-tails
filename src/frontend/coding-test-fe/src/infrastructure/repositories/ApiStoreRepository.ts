@@ -1,6 +1,6 @@
 import type { Store, RichStore } from '../../domain/aggregates/Store'
 import type { StoreInterface } from '../../domain/interfaces/storeInterface'
-import type { RichStoreApiDTO, StoreApiDTO } from '../dtos/StoreApiDTO'
+import type { EnrichedStoresRequestApiDTO, RichStoreApiDTO, StoreApiDTO } from '../dtos/StoreApiDTO'
 import { mapStoreApiDtoToDomain, mapRichStoreApiDtoToDomain, mapStoreNameToBackend } from '../mappers/storeMapper'
 
 export class ApiStoreRepository implements StoreInterface {
@@ -31,17 +31,23 @@ export class ApiStoreRepository implements StoreInterface {
         return data.map(mapStoreApiDtoToDomain)
     }
 
-    async getEnrichedByName(name: string): Promise<RichStore[]> {
-        name = mapStoreNameToBackend(name)
-        const params = new URLSearchParams({ name })
-        const response = await fetch(`${this.apiUrl}/stores/enriched_search_by_name?${params.toString()}`)
+    async getEnrichedByNames(names: string[]): Promise<RichStore[]> {
+        const payload: EnrichedStoresRequestApiDTO = {
+            storeNames: names.map(mapStoreNameToBackend),
+        }
+
+        const response = await fetch(`${this.apiUrl}/stores/enriched_search_by_names`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        })
         if (!response.ok) {
-            throw new Error('Failed to search enriched stores by name')
+            throw new Error('Failed to search enriched stores by names')
         }
 
         const data = (await response.json()) as RichStoreApiDTO[]
-        const enrichedData = data.map(mapRichStoreApiDtoToDomain)
-        console.log('Enriched data:', enrichedData)
-        return enrichedData
+        return data.map(mapRichStoreApiDtoToDomain)
     }
 } 
