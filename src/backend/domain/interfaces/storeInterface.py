@@ -17,6 +17,6 @@ class StoreInterface(ABC):
         ...
 
     @abstractmethod
-    def get_enriched_stores(self) -> List[RichStore]:
-        """Returns a list of all stores with enriched data."""
+    def get_enriched_stores_by_names(self, names: List[StoreName]) -> List[RichStore]:
+        """Returns enriched stores matching the provided store names in request order."""
         ...

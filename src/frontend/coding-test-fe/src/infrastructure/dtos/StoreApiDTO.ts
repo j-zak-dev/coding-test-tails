@@ -8,3 +8,7 @@ export type RichStoreApiDTO = {
   postcode: string
   latAndLong: [number, number]
 }
+
+export type EnrichedStoresRequestApiDTO = {
+  storeNames: string[]
+}

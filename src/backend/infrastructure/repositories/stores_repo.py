@@ -29,7 +29,40 @@ class StoresRepo(StoreInterface):
         ]
         return sorted(filtered_stores, key=lambda store: store._postcode.value().casefold())
 
+    def get_enriched_stores_by_names(self, names: list[StoreName]):
+        names_lookup = [name.value().lower() for name in names]
+        if not names_lookup:
+            return []
+
+        all_stores = self.get_all_stores()
+        stores_by_name = {store._name.value().lower(): store for store in all_stores}
+
+        enriched_stores = []
+        seen = set()
+        for store_name in names_lookup:
+            if store_name in seen:
+                continue
+            seen.add(store_name)
+
+            store = stores_by_name.get(store_name)
+            if store is None:
+                continue
+
+            latAndLong = self.get_coords_fn(store._postcode.value())
+            enriched_store = mappers.map_store_to_domain_rich_store(
+                {
+                    "id": store._id.value(),
+                    "name": store._name.value(),
+                    "postcode": store._postcode.value(),
+                    "latAndLong": latAndLong,
+                }
+            )
+            enriched_stores.append(enriched_store)
+
+        return enriched_stores
+
     def get_enriched_stores(self, name: StoreName):
+        # Backward-compatible helper for older callers.
         enriched_stores = []
         for store in self.search_stores_by_name(name):
             if (

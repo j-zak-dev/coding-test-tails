@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+
 import type { Store } from '../../domain/aggregates/Store'
 
 const props = defineProps<{
@@ -12,22 +14,66 @@ const emit = defineEmits<{
   submit: []
 }>()
 
+const searchFormRef = ref<HTMLElement | null>(null)
+const isDropdownOpen = ref(false)
+
+watch(model, (value) => {
+  if (!value.trim()) {
+    isDropdownOpen.value = false
+  }
+})
+
+function onDocumentClick(event: MouseEvent) {
+  const target = event.target as Node | null
+  if (!target || !searchFormRef.value) {
+    return
+  }
+
+  if (!searchFormRef.value.contains(target)) {
+    isDropdownOpen.value = false
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', onDocumentClick)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', onDocumentClick)
+})
+
+function openDropdown() {
+  if (model.value.trim()) {
+    isDropdownOpen.value = true
+  }
+}
+
 function onSubmit() {
+  isDropdownOpen.value = false
   emit('submit')
-  model.value = ''
+  console.log('Search submitted with query:', model.value)
 }
 
 function onSuggestionClick(suggestion: Store) {
   model.value = suggestion.name
+  isDropdownOpen.value = false
+  console.log('Suggestion clicked:', suggestion.name)
   onSubmit()
 }
 </script>
 
 <template>
-  <form class="search-form" @submit.prevent="onSubmit">
-    <input v-model="model" type="text" :placeholder="props.placeholder" />
+  <form ref="searchFormRef" class="search-form" @submit.prevent="onSubmit">
+    <input
+      v-model="model"
+      type="text"
+      :placeholder="props.placeholder"
+      @focus="openDropdown"
+      @input="openDropdown"
+      @keydown.esc="isDropdownOpen = false"
+    />
     <div class="dropdown">
-      <ul class="search-suggestions" v-if="model">
+      <ul class="search-suggestions" v-if="model.trim() && props.suggestions?.length && isDropdownOpen">
         <li class="search-suggestion" v-for="suggestion in props.suggestions" :key="suggestion.name" @click="onSuggestionClick(suggestion)">{{ suggestion.name }}</li>
       </ul>
     </div>

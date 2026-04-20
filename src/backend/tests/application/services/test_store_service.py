@@ -27,3 +27,11 @@ def test_search_stores_by_name(store_service):
     assert isinstance(stores, list)
     assert len(stores) == 1
     assert stores[0].name == "Mock_Store_2"
+
+
+def test_get_enriched_stores_by_names(store_service):
+    stores = store_service.get_enriched_stores_by_names(["Mock_Store_2", "Mock_Store_1"])
+    assert isinstance(stores, list)
+    assert len(stores) == 2
+    assert stores[0].name == "Mock_Store_2"
+    assert stores[1].name == "Mock_Store_1"

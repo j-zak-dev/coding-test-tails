@@ -25,6 +25,7 @@ defineProps<{
   padding: 30px;
   margin-bottom: 8px;
   font-family: 'Courier New', Courier, monospace;
+  height: 250px;
 }
 
 .store-item h3 {

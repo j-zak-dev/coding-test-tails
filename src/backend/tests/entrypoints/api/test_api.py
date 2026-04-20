@@ -46,3 +46,17 @@ def test_search_stores_by_name_endpoint(client):
     assert len(data) == 1
     assert data[0]["name"] == "Mock_Store_2"
     assert data[0]["postcode"] == "BB1 1BB"
+
+
+def test_get_enriched_stores_by_names_endpoint(client):
+    response = client.post(
+        "/stores/enriched_search_by_names",
+        json={"storeNames": ["Mock_Store_2", "Mock_Store_1"]},
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data, list)
+    assert len(data) == 2
+    assert data[0]["name"] == "Mock_Store_2"
+    assert data[0]["latAndLong"] == [1, 1]
